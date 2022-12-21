@@ -5,17 +5,17 @@ from flask_login import login_user, logout_user, login_required
 from QLNhaSach.decorators import annonymous_user
 import cloudinary.uploader
 import re
-import mysql.connector
-
-mydb = mysql.connector.connect(host='127.0.0.1', user='root', password='03112002', database='cs01saled')
-mycursor = mydb.cursor()
-mycursor.execute('set global event_scheduler=on')
-code = "create event if not exists delete_event ON schedule every 10 second starts current_timestamp() do delete from "
-code_tmp = "receipt_details where active = 0 and receipt_id in (select id from receipt where created_date < Date_sub(now(),interval 48 hour));"
-mycursor.execute(code + code_tmp)
-code2 = "create event if not exists delete_event2 ON schedule every 20 second starts current_timestamp() do "
-code2_tmp = "delete from receipt where id not in (select receipt_id from receipt_details);"
-mycursor.execute(code2 + code2_tmp)
+# import mysql.connector
+#
+# mydb = mysql.connector.connect(host='127.0.0.1', user='root', password='03112002', database='cs01saled')
+# mycursor = mydb.cursor()
+# mycursor.execute('set global event_scheduler=on')
+# code = "create event if not exists delete_event ON schedule every 10 second starts current_timestamp() do delete from "
+# code_tmp = "receipt_details where active = 0 and receipt_id in (select id from receipt where created_date < Date_sub(now(),interval 48 hour));"
+# mycursor.execute(code + code_tmp)
+# code2 = "create event if not exists delete_event2 ON schedule every 20 second starts current_timestamp() do "
+# code2_tmp = "delete from receipt where id not in (select receipt_id from receipt_details);"
+# mycursor.execute(code2 + code2_tmp)
 
 
 def index():
@@ -38,9 +38,10 @@ def chitiethoadon(receipt_id):
 
 
 def update_receipt_detail(receipt_id):
-    re = 'UPDATE receipt_details SET active = 1 WHERE receipt_details.receipt_id = ' + str(receipt_id)
-    mycursor.execute(re)
-    mydb.commit()
+    # re = 'UPDATE receipt_details SET active = 1 WHERE receipt_details.receipt_id = ' + str(receipt_id)
+    # mycursor.execute(re)
+    # mydb.commit()
+    print(receipt_id)
 
 
 def login_admin():
